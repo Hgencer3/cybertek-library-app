@@ -1,6 +1,7 @@
 package com.cybertek.library.step_definitions;
 
 import com.cybertek.library.pages.LibraryLoginPage;
+import com.cybertek.library.utilities.ConfigurationReader;
 import com.cybertek.library.utilities.Driver;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -13,7 +14,9 @@ public class Login_StepDefinitions {
 
     @Given("I am on the login page")
     public void i_am_on_the_login_page() {
-        Driver.getDriver().get("https://library2.cybertekschool.com/");
+        String url= ConfigurationReader.getProperty("lib_App_Url");
+        Driver.getDriver().get(url);
+
     }
     @When("I login as a librarian")
     public void i_login_as_a_librarian() {
@@ -65,12 +68,15 @@ public class Login_StepDefinitions {
 
         Assert.assertEquals(actualUsersCount,expectedUsersCount);
 
-
-
-
     }
 
 
+    @When("I login using {string} and {string}")
+    public void iLoginUsingAndAOYKYTMJ(String arg0, String arg1) {
 
+        loginPage.usernameInput.sendKeys(arg0);
+        loginPage.passwordInput.sendKeys(arg1);
+        loginPage.signIn.click();
 
+    }
 }
